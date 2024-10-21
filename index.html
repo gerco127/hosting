@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+      body {
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      .chart-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+      .chart {
+        flex: 1 1 45%;
+        min-width: 300px;
+        margin: 20px;
+        background-color: #ffffff;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      table, th, td {
+        border: 1px solid #ddd;
+      }
+      th, td {
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawCharts);
+
+      function drawCharts() {
+        drawLineChart();
+        drawBarChart();
+        drawAreaChart();
+        drawPieChart();
+        drawColumnChart();
+      }
+
+      function drawLineChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Año', 'Pobreza (%)', 'Pobreza Extrema (%)'],
+          ['2008', 44.4, 11.0],
+          ['2010', 46.1, 10.4],
+          ['2012', 45.5, 9.8],
+          ['2014', 46.2, 9.5],
+          ['2016', 43.6, 7.6],
+          ['2018', 41.9, 7.4]
+        ]);
+
+        var options = {
+          title: 'Evolución de la Pobreza en México (2008-2018)',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('line_chart'));
+        chart.draw(data, options);
+      }
+
+      function drawBarChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Carencia', '2008', '2018'],
+          ['Rezago educativo', 21.9, 16.9],
+          ['Acceso a servicios de salud', 38.4, 16.2],
+          ['Acceso a seguridad social', 65.0, 57.3],
+          ['Calidad y espacios de la vivienda', 17.7, 11.1],
+          ['Servicios básicos en la vivienda', 22.9, 19.8],
+          ['Acceso a la alimentación', 21.7, 20.4]
+        ]);
+
+        var options = {
+          title: 'Comparación de Carencias Sociales (2008 vs 2018)',
+          chartArea: {width: '50%'},
+          hAxis: {
+            title: 'Porcentaje',
+            minValue: 0
+          },
+          vAxis: {
+            title: 'Carencia'
+          }
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('bar_chart'));
+        chart.draw(data, options);
+      }
+
+      function drawAreaChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Año', 'Zonas Rurales (%)', 'Zonas Urbanas (%)'],
+          ['2008', 62.5, 38.9],
+          ['2010', 64.9, 40.5],
+          ['2012', 64.0, 39.8],
+          ['2014', 64.6, 40.6],
+          ['2016', 61.1, 37.6],
+          ['2018', 55.3, 37.6]
+        ]);
+
+        var options = {
+          title: 'Pobreza en Zonas Rurales y Urbanas (2008-2018)',
+          hAxis: {title: 'Año',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0},
+          isStacked: true
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('area_chart'));
+        chart.draw(data, options);
+      }
+
+      function drawPieChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Grupo', 'Porcentaje'],
+          ['Hablantes de lengua indígena', 74.9],
+          ['No hablantes de lengua indígena', 39.4],
+          ['Mujeres', 42.4],
+          ['Hombres', 41.4]
+        ]);
+
+        var options = {
+          title: 'Distribución de la Pobreza por Grupos de Población (2018)'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
+        chart.draw(data, options);
+      }
+
+      function drawColumnChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Entidad', '2008', '2018'],
+          ['Aguascalientes', 30.2, 28.2],
+          ['Hidalgo', 52.8, 43.8],
+          ['Tlaxcala', 51.0, 48.4],
+          ['Veracruz', 51.2, 61.8],
+          ['Oaxaca', 61.8, 66.4],
+          ['Colima', 32.2, 34.2]
+        ]);
+
+        var options = {
+          title: 'Comparación de la Pobreza por Entidad Federativa (2008 vs 2018)',
+          hAxis: {title: 'Entidad Federativa',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('column_chart'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Evolución de la Pobreza en México (2008-2018)</h1>
+      <div class="chart-container">
+        <div id="line_chart" class="chart"></div>
+        <div id="bar_chart" class="chart"></div>
+        <div id="area_chart" class="chart"></div>
+        <div id="pie_chart" class="chart"></div>
+        <div id="column_chart" class="chart"></div>
+      </div>
+   
